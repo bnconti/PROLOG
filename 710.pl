@@ -7,6 +7,7 @@ subconjunto([X|L1], L2) :-
     contiene(X, L2),
     subconjunto(L1, L2).
 
+% También se puede usar el método member.
 contiene(X, [X|_]) :- !.
 
 contiene(X, [_|T]) :-
