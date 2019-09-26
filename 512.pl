@@ -12,5 +12,11 @@ mujer(la-abuela).
 madre(la-abuela, homero).
 esposos(morticia, homero).
 
-hermano_de(X, Y) :- padre_de(P, X), padre_de(P, Y), X \= Y.
-tio(T) :- padre_de(P, merlina), hermano_de(P, T).
+hermano_de(X, Y) :-
+    padre_de(P, X), 
+    padre_de(P, Y),
+    X \= Y.
+
+tio(T) :-
+    padre_de(P, merlina),
+    hermano_de(P, T).

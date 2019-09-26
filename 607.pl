@@ -1,4 +1,4 @@
-/*  7. Desarrollar un predicado ternario cuyos sujetos
+/*  Desarrollar un predicado ternario cuyos sujetos
     representan las longitudes de tres segmentos, y que
     sea verdadero si estos tres segmentos forman triángulo.
     Recordar que la suma de las longitudes de dos lados

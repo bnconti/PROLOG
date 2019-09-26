@@ -20,7 +20,10 @@ precio(autito, 10).
 precio(munheca, 15).
 precio(oso, 20).
 
-articulos(Ba, Per, Ju) :- bazar(Ba), perfumeria(Per), jugueteria(Ju).
+articulos(Ba, Per, Ju) :- 
+        bazar(Ba),
+        perfumeria(Per),
+        jugueteria(Ju).
 
 oferta(Valor) :-
         articulos(Ba, Per, Ju),

@@ -1,4 +1,4 @@
-% Predicado que vincula una lista de números enteros, 
+% Predicado que vincula una lista de números enteros
 % con la cantidad de números naturales que contiene.
 
 naturales([], 0).
