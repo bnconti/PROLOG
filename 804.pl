@@ -15,4 +15,3 @@ armar_lista(N, [R|T]) :-
 invertir([], LI, LI) :- !.
 
 invertir([H|T], LI, AC) :- invertir(T, LI, [H|AC]).
-

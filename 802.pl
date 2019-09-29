@@ -4,8 +4,7 @@
 
 sustituir(_, _, [], []).
 
-sustituir(A, B, [A|T], [B|LN]) :-
-     sustituir(B, B, T, LN), ! .
+sustituir(A, B, [A|T], [B|T]) :- ! .
 
 sustituir(A, B, [H|T], [H|LN]) :-
     sustituir(A, B, T, LN).
