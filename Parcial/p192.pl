@@ -39,7 +39,9 @@ sin_repetidos([Cab | Cola], LAux) :-
     not(member(Cab, LAux)),
     sin_repetidos(Cola, [Cab | LAux]).
 
+% Este funca pero es más ineficiente, ver más abajo.
 
+/*
 union(Con1, Con2, ConUnido) :-
     copiar(Con1, [], CAux),
     copiar(Con2, CAux, ConUnidoAux),
@@ -53,3 +55,17 @@ copiar([CabC1 | ColaC1 ], CAux, CF) :-
 
 copiar([_ | ColaC1 ], CAux, CF) :-
     copiar(ColaC1, CAux, CF).
+*/
+
+% El anterior es más complicado porque valida otras cosas, pero no son necesarias porque
+% se supone que los conjuntos que se reciben son válidos.
+
+unir([], L, L) :- !.
+
+unir([H|T], L, R) :-
+    memberchk(H, L),
+    !,
+    unir(T, L, R).
+
+unir([H|T], L, [H|R]) :-
+    unir(T, L, R).
