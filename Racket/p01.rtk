@@ -1,0 +1,125 @@
+#lang racket
+
+;; 1. Escribir una función llamada "tres" que, dado
+;; cualquier valor, devuelve el número 3.
+
+(define (tres num)
+  3)
+
+;; 2. Escribir una función llamada triple que, dado
+;; cualquier valor x, devuelve el triple de x.
+
+(define (triple x)
+  (* x 3))
+
+;; 3. Función que, dado cualquier número, devuelve
+;; la mitad del mismo.
+
+(define (mitad x)
+  (/ x 2))
+
+;; 4. Escribir una función que, dado cualquier valor
+;; x, devuelve el el duplo de la suma de 15 + x.
+
+(define (duplo x)
+  (* 2 (+ x 15)))
+
+;; 5. Definir "circunferencia", que dado el radio
+;; retorne la longitud de la misma.
+
+(define (circ r)
+  (* 2 r pi))
+
+;; 6. Escribir una función que, dada una temperatura en grados Celsius, la devuelva
+;; expresada en grados Fahrenheit. La fórmula de conversión es f = (9/5)c + 32
+
+(define (fahrenheit c)
+  (+ (* 9/5 c) 32))
+
+;; 7. Sabiendo que: 1 pie = 12 pulgadas; 1 yarda = 3 pies; 1 pulgada = 2.54 centímetros. Definir tres funciones
+;; (yardas, pulgadas y pies), que dado un valor en centímetros, devuelva esa longitud expresada en esas unidades.
+
+(define (cms2pulgadas cms)
+  (/ cms 2.54))
+
+(define (cms2pies cms)
+  (/ (cms2pulgadas cms) 12))
+
+(define (cms2yardas cms)
+  (/ (cms2pies cms) 3))
+
+;; 8. Definir "superficie", una función que dado el ancho y el largo de una habitación retorne su superficie.
+
+(define (superficie b h)
+  (* b h))
+
+;; 9. Definir una función para ingresarle la base y la altura de un triángulo, y devuelva el valor del área.
+
+(define (sup_tri b h)
+  (/ (* b h) 2))
+
+;; 10. La relación entre los lados (a,b) de un triángulo y la hipotenusa viene dada por la fórmula a**2 + b**2 = h**2.
+;; Definir una función para que dadas las longitudes de los lados, calcule y devuelva la hipotenusa.
+
+(define (hip a b)
+  (sqrt (+ (expt a 2) (expt b 2))))
+
+;; 11. El área de un triángulo cuyos lados son a, b y c se puede calcular por la fórmula:
+;; A = sqrt(p * (p - a) * (p - b) * (p - c)) donde p = (a+b+c)/2. Definir una función para
+;; ingresarle a, b y c, y devuelva el área del triángulo.
+
+(define (semip a b c)
+  (/ (+ a b c) 2))
+
+(define (area_tri a b c)
+  (sqrt (* (semip a b c) (- (semip a b c) a) (- (semip a b c) b) (- (semip a b c) c))))
+
+;; 12. Definir una función que acepte los coeficientes a, b y c de
+;; la ecuación de primer grado a * x + b = c, y devuelva el valor de la raiz.
+
+(define (raiz_ecu a b c)
+  (/ (- c b) a))
+
+;; 13. Definir una función que acepte dos números enteros, y devuelva una lista
+;; con el cociente y el resto la división entera entre los dos números.
+
+(define (cr a b)
+  (list (quotient a b) (modulo a b)))
+
+;; 14. Definir una función que dada una cantidad de segundos, devuelva
+;; una lista con la misma cantidad expresada en minutos y segundos.
+
+(define (segs2mins segs)
+  (cr segs 60))
+
+;; 15. Definir una función que acepte la cantidad de varones y mujeres que hay
+;; en un recinto, y devuelva una lista con el porcentaje de varones y mujeres.
+
+(define (cant_vym v m)
+  (list (* (/ v (+ v m)) 100) (* (/ m (+ v m)) 100)))
+
+;; 16. Utilizando las expresiones descriptas anteriormente, definir la función pasaje, que reciba una
+;; medida en centímetros, y retorne una lista con esa medida expresada en pulgadas, pies y yardas.
+
+(define (pasaje medida)
+  (list (cms2pulgadas medida) (cms2pies medida) (cms2yardas medida)))
+
+;; 17. Definir una función que acepte los coeficientes de un sistema de dos ecuaciones con dos incógnitas:
+;; a11 * x1 + a12 * x2 = b1 | x1 = (b1 - a12 * x2)/a11
+;; a21 * x1 + a22 * x2 = b2 | x2 = (b2 - a22 * x1)/a21
+;; y devuelva una lista con los valores de las incógnitas.
+
+(define (s2e a11 a12 b1 a21 a22 b2)
+  (define (x1 (/ (- (b1 (* a12 )) a11)
+
+;; 18. Definir una función llamada doblar que dada una lista
+;; de 3 números, devuelve el doble de su primera componente.
+
+(define (doblar lista)
+  (list (* (car lista) 2)))
+
+;; 19. Definir una función llamada producto_por_tres que dada una lista
+;; de 3 números devuelva otra lista con los mismos multiplicados por 3.
+
+(define (px3 lista)
+  (list (* (car lista) 2) (* (cadr lista) 2) (* (caddr lista) 2)))
