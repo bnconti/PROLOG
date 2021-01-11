@@ -1,0 +1,46 @@
+N reinas:
+- Desarrollar el problema
+
+El problema de las n Reinas (n-Queens) consiste en organizar n cantidad de reinas en un tablero de ajedréz de nxn casilleros, de manera tal que ninguna ataque a la otra. Las primeras menciones de este problema datan del 1848.
+
+- Comenzar con n bajo a modo de ejemplo (n = 0, n = 1, n = 2, ...)
+- Descripción general de la solución:
+Para la solución podría utilizarse un sistema de coordenadas (por ej. la reina 2 está en (3, 4)), pero como sabemos que en cada fila y columna solo podemos tener una única reina, podemos recurrir a una notación más compacta, donde por ej. el número de la reina se corresponda con el de la columna. Así, si expresamos R_2 = 3, estamos diciendo que la reina 2 está en la columna 2 y en la fila 3.
+
+Para n >= 4 siempre hay solución.
+
+Nos valdremos de esta última representación ya que como dijimos es más simple, y donde en definitiva tenemos que:
+* Las reinas se representan con las variables R_1, R_2, ..., R_N
+* R_i contiene un entero que indica la fila en la que está ubicada la reina de la columna i.
+
+- La solución en sí
+
+Pasamos entonces a definir el predicado inicial, donde declaramos las condiciones que deben cumplirse para que una solución sea válida:
+
+n_reinas(N, Rs) :- 
+	length(Rs, N), 			ya que para un tablero de NxN debemos ubicar N reinas
+	Rs ins 1..N,			las reinas deben ser una lista de enteros entre 1 y N
+	reinas_seguras(Rs).		y por último deben estar seguras
+
+reinas_seguras([]).			si no hay reinas, entonces por defecto están seguras
+
+reinas_seguras([R|Rs]) :- 
+	reinas_seguras_aux(Rs, R),
+	reinas_seguras(Rs).
+	
+reinas_seguras_aux([], _).
+reinas_seguras_aux([R|Rs], R0) :-
+	R #\= R0,				para que una reina amenaza a otra, tienen que ser distintas
+	reinas_seguras_aux(Rs, R0).
+	
+	
+Basado en:
+https://www.metalevel.at/queens/
+
+https://sudonull.com/post/18512-The-N-Queens-problem-was-recognized-as-an-NP-complete-problem
+
+
+
+scryer-prolog -g 'show(20,[ff])' /mnt/queens.pl | \
+     gs -dNOPROMPT -g680x680 -dGraphicsAlphaBits=2 -r144 -q
+
