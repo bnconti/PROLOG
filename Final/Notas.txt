@@ -39,8 +39,3 @@ https://www.metalevel.at/queens/
 
 https://sudonull.com/post/18512-The-N-Queens-problem-was-recognized-as-an-NP-complete-problem
 
-
-
-scryer-prolog -g 'show(20,[ff])' /mnt/queens.pl | \
-     gs -dNOPROMPT -g680x680 -dGraphicsAlphaBits=2 -r144 -q
-
