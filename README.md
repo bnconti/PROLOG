@@ -17,6 +17,8 @@
 
 ## N Reinas
 
+Instalar [Scryer Prolog](https://github.com/mthom/scryer-prolog).
+
 ```
 # scryer-prolog reinas.pl
    
@@ -26,7 +28,7 @@
    ;  Rs = [1,7,4,6,8,2,5,3]
    ;  ...
 ```
-## Sudoku:
+## Sudoku
 
 ```
 docker build -t clj .
