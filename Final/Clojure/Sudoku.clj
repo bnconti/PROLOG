@@ -27,3 +27,5 @@
 (def test1 (for [c columnas] (ProdCruz filas [c])))
 (def test2 (for [f filas] (ProdCruz [f] columnas)))
 (def test3 (for [fs filasRegion cs columnasRegion] (ProdCruz fs cs)))
+
+(println test1)

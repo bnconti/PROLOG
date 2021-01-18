@@ -1,3 +1,11 @@
+Introducción al TP
+
+En este trabajo hemos seleccionado una serie de problemas, algunos de ellos clásicos en el mundo de las ciencias de la computación, como el de las n reinas, y otros más orientados a problemas prácticos o "reales", como el del sistema experto diagnosticador. Para cada problema ofreceremos una solución, basándonos en el paradigma de programación lógica o el funcional.
+
+El trabajo está separado en secciones, de las cuales cada una toma como punto de partida un problema. Las secciones son independientes entre sí, y al tratar distintas cuestiones pueden leerse individualmente sin ningún inconveniente.
+A la hora de desarrollar las secciones hemos tratado de seguir una misma estructura: primero ofrecemos una introducción conceptual al problema, luego desarrollamos una solución y finalmente comprobamos que los resultados sean los esperados.
+
+
 N reinas:
 - Desarrollar el problema
 
