@@ -46,4 +46,3 @@ Basado en:
 https://www.metalevel.at/queens/
 
 https://sudonull.com/post/18512-The-N-Queens-problem-was-recognized-as-an-NP-complete-problem
-
