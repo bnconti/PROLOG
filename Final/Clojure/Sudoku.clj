@@ -1,12 +1,13 @@
 ;; http://www.learningclojure.com/2009/11/sudoku_24.html
 
-;; Devuelve el producto cruz entre dos colecciones A y B
-(defn prod-cruz [A, B]
-  (for [a A b B] (str a b)))
-
 (def filas "ABCDEFGHI")
 (def columnas "123456789")
 (def dígitos "123456789")
+(def caracteres-casilla-vacía "0.-") ;; El valor de las casillas vacías pueden ser alguno de estos caracteres
+
+;; Devuelve el producto cruz entre dos colecciones A y B
+(defn prod-cruz [A, B]
+  (for [a A b B] (str a b)))
 
 ;; Generar índices de las casillas del tablero mediante el prod. cruz de filas y columnas. 
 ;; casillas: (A1, A2, ..., A9, B1, ..., I9)
@@ -29,9 +30,6 @@
                                     cs columnas-región] (prod-cruz fs cs))  ; Regiones: (A1, B1, C1, A2, ..., C3), ...
                               )))
 
-;; El valor de las casillas vacías pueden ser alguno de estos caracteres
-(def caracteres-casilla-vacia "0.-")
-
 ;; Funciones auxiliares para crear diccionarios y conjuntos ordenados
 (defn diccionario [x] (apply sorted-map (apply concat x)))
 (defn conjunto [x] (apply sorted-set (apply concat x)))
@@ -53,27 +51,33 @@
 (def pares (diccionario (for [c casillas]
                           [c (disj (conjunto (unidades c)) c)])))
 
-;; Declaración de las funciones que van a llevar a cabo la propagación de restricciones.
-(declare asignar! eliminar! comprobar!)
+;; El Sudoku ingresado como entrada puede contener caracteres irrelevantes. Por esto,
+;; limpiamos la cadena de entrada tomando solamente los que están definidos en 'dígitos'
+;; y en 'caracteres-casilla-vacía'.
+(defn filtrar [cadena] (filter (set (concat dígitos caracteres-casilla-vacía)) cadena))
 
-;; Filtrar solo la parte relevante de la entrada para generar la grilla
-(defn filtrar [cadena] (filter (set (concat dígitos caracteres-casilla-vacia)) cadena))
+;; Crea una grilla inicial, donde a cada casillero se le asignan todos los dígitos del 1 al 9.
+(defn inicializar-grilla [] (diccionario (for [c casillas] [c,(atom dígitos)])))
 
-;; Crea una grilla inicial, donde cada casillero contiene todos los dígitos
-(defn crear-grilla [] (diccionario (for [c casillas] [c,(atom dígitos)])))
-
-;; Comprueba si todos los elementos de la colección son verdaderos
+;; Comprueba si todos los elementos de la colección son verdaderos (?)
 (defn verdaderos? [coleccion] (every? identity coleccion))
 
-;; Convierte una cadena de texto (que representa una grilla) en un diccionario
-;; con posibles valores para cada casillero
-(defn convertir-grilla [cadena]
+;; Uno de los puntos de entrada del programa. El sudoku ingresado por el usuario pasa 
+;; por esta función, donde se filtra y luego se inicializa la grilla que vamos a utilizar.
+;; Al terminar la función, la grilla tendrá asignados los valores pasados como pista,
+;; y en las casillas a completar todos los dígitos, menos los que ya están asignados en sus unidades.
+;; Por ej., si en la casilla A1 se pasó cmo pista el valor 1 y en A2 2, A3 va a tener los valores (3, 4, ... 9)
+(defn grilla [cadena]
   (let [cadena (filtrar cadena)
-        valores (crear-grilla)]
+        valores (inicializar-grilla)]
     (if (verdaderos? (for [[casilla nro] (zipmap casillas cadena) :when ((set dígitos) nro)]
                        (asignar! valores casilla nro)))
       valores
       false)))
+
+
+;; Declaración de las funciones que van a llevar a cabo la propagación de restricciones.
+(declare asignar! eliminar! comprobar!)
 
 ;; Asigna 'nro' en 'casilla'. Como las casillas a completar ya vienen cargadas con todos los dígitos,
 ;; lo que hace en realidad es eliminar todos los valores menos el que se quiere asignar.
@@ -86,7 +90,7 @@
 
 ;; Elimina un valor de una casilla. Si tras hacer esto no quedan valores, la función devuelve falso (sí o sí tiene que ir un número)
 ;; Si sólo queda un número en la casilla, entonces ese nú
-remove a potential choice from a square. If that leaves no values, then that's a fail
+;; remove a potential choice from a square. If that leaves no values, then that's a fail
 ;;if it leaves only one value then we can also eliminate that value from its peers.
 ;;either way, perform checks to see whether we've left the eliminated value with only one place to go.           
 (defn eliminar! [values s d]
