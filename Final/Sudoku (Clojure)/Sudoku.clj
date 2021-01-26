@@ -127,11 +127,11 @@
 ; Verifica si tras eliminar un valor de una casilla se generaron contradiciones o nuevas posibilidades de asignación
 (defn comprobar! [grilla casilla dígito]
   (loop [unidad (unidades casilla)] ; Bucle que recorre las tres unidades de la casilla
-    (let [dplaces (for [casilla (first unidad) :when ((set @(grilla casilla)) dígito)] casilla)] ;how many possible placings of dígito 
-      (if (= (count dplaces) 0) ;if none then we've failed
+    (let [dplaces (for [casilla (first unidad) :when ((set @(grilla casilla)) dígito)] casilla)] ; ¿Cuántas casillas posibles para 'dígito'?
+      (if (= (count dplaces) 0) ; Si no hay ninguna, es una sol. inválida
         false
-        (if (= (count dplaces) 1) ;if only one, then that has to be the answer
-          (if (not (asignar! grilla (first dplaces) dígito)) ;so we can assign it.
+        (if (= (count dplaces) 1) ; Si solo hay una, esa es la respuesta
+          (if (not (asignar! grilla (first dplaces) dígito)) ; Asignar
             false
             (if (not (empty? (rest unidad))) (recur (rest unidad)) grilla))
           (if (not (empty? (rest unidad))) (recur (rest unidad)) grilla))))))
@@ -146,16 +146,16 @@
   ([grilla] (solucionar grilla ""))
   ([grilla, iteración]
    (if grilla
-     (if (verdaderos? (for [c casillas] (= 1 (count @(grilla c))))) ; (1)Si todas las casillas tienen un solo valor...
+     (if (verdaderos? (for [c casillas] (= 1 (count @(grilla c))))) ; Si todas las casillas tienen un solo valor...
        grilla                                                       ; Ya tenemos la solución, devolverla.
        (let [pivote                                                 ; Caso contrario...
              (second (first (sort     ; Seleccionar la casilla con más de un valor, pero con la menor cant. de valores
                              (for [c casillas :when (> (count @(grilla c)) 1)]
                                [(count @(grilla c)), c]))))]
-         (let [resultados (for [nro @(grilla pivote)] ;try all choices
-                         (do ;(imprimir-tablero grilla)
-                           (solucionar (asignar! (copiar-grilla grilla) pivote nro) (str iteración nro))))] ;(format "%s->%s;" pivot d)
-           (some identity resultados)))) ;and if any of them come back solved, return solution
+         (let [resultados (for [nro @(grilla pivote)] ; Probar con todos los valores disponibles
+                         (do
+                           (solucionar (asignar! (copiar-grilla grilla) pivote nro) (str iteración nro))))]
+           (some identity resultados)))) ; Si alguna vuevle resuelta, devolverla
      false)))
 
 
