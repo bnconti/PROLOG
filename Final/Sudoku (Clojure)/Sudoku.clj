@@ -192,7 +192,8 @@
 (defn imprimir-tablero [grilla] (println (tablero grilla)))
 (defn imprimir-problema [problema]  (println (join \newline (map #(apply str %) (partition 9 (filter (set (concat dígitos caracteres-casilla-vacía)) problema))))))
 
-(def sudoku-dificil "
+(def sudoku-dificil 
+"
 850002400
 720000009
 004000000

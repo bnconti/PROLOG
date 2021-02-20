@@ -4,9 +4,9 @@
 :- use_module(library(dcgs)).
 
 n_reinas(N, Rs) :- 
-	length(Rs, N),
-	Rs ins 1..N,
-	reinas_seguras(Rs).
+	length(Rs, N),       % (1)
+	Rs ins 1..N,         % (2)
+	reinas_seguras(Rs).  % (3)
 
 reinas_seguras([]).
 reinas_seguras([R|Rs]) :- 

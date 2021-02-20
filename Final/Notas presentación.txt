@@ -1,0 +1,34 @@
+=== N REINAS ===
+
+¿De qué trata?
+El problema de las N reinas fue planteado por primera vez a mediados del siglo XIX, y consiste en colocar una cantidad n de reinas (las mismas del ajedrez) en un tablero con dimensiones nxn sin que se ataquen entre sí.
+
+Fue estudiado por matemáticos como Gauss, que demostró la cantidad de soluciones para n = 8.
+
+El problema puede presentarse en distintas variantes:
+- 
+
+Características del problema:
+- NP completo:
+-- Se _resuelve_ en tiempo no polinomial para una MQ determinista.
+-- Pero se _comprueba_ en tiempo lineal.
+
+-#P completo:
+-- No se puede determinar el número de soluciones en tiempo polinomial con una MQ determinista.
+
+Número de soluciones:
+El número de soluciones incrementa exponencialmente. Para n >= 4 siempre hay solución.
+
+¿Cómo se representa internamente?
+Para representar las reinas en el programa, utilizaremos sencillamente una lista, en la que el índice del elemento representa la columna en la que se encuentra, mientras que el valor la columna.
+
+En el predicado reinas_seguras_aux está el núcleo de la solución. Recibe 3 parámetros: una lista con las reinas contra las que vamos a comparar, la reina que estamos verificando si es atacada, y la distancia que las separa (en columnas).
+
+
+=== SUDOKU ===
+
+Para implementar la solución utilizamos Clojure, un lenguaje de la familia Lisp (utiliza paréntesis, la sintaxis es idéntica) y construido sobre la máquina virtual y las interfaces de Java.
+
+El algoritmo utiliza backtracking, que en el fondo es un tipo de fuerza bruta: se van probando valores, si se obtiene un estado válido se continua y sino se retrocede.
+
+Cargar en la casilla todos los dígitos, ya que entre ellos está el verdadero.
